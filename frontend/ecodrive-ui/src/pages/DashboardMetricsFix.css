@@ -1,0 +1,412 @@
+
+/* ============================================================
+   ECODRIVE AI — DASHBOARD FINAL SPACING FIX
+   Fixes:
+   1. KPI text clipping/overlap
+   2. KPI sparkline placement
+   3. Sustainability score ring spacing
+   4. Emission Sources donut/legend overlap
+   ============================================================ */
+
+/* ---------- KPI CARDS ---------- */
+
+.stats-grid-ref {
+  min-width: 0;
+}
+
+.stats-grid-ref .stat-card {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 58px minmax(0, 1fr) 88px !important;
+  align-items: center !important;
+  column-gap: 14px !important;
+  min-width: 0 !important;
+  min-height: 138px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Icon always owns the first column. */
+.stats-grid-ref .stat-icon {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+/* Text owns the middle column.
+   IMPORTANT: do NOT hide overflow here — that was causing
+   "18.6" to become "18." and titles to become truncated. */
+.stats-grid-ref .stat-copy {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 8 !important;
+}
+
+/* Titles may wrap, but every word remains readable. */
+.stats-grid-ref .stat-title {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  line-height: 1.18 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+}
+
+/* Values must never be clipped. */
+.stats-grid-ref .stat-value {
+  display: block !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  margin-top: 7px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+.stats-grid-ref .stat-value small {
+  white-space: nowrap !important;
+  display: inline !important;
+}
+
+/* Backend / Live analysis / ML pipeline label. */
+.stats-grid-ref .stat-change {
+  display: inline-flex !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  align-items: center !important;
+  gap: 5px !important;
+  margin-top: 9px !important;
+  padding: 3px 6px !important;
+  position: relative !important;
+  z-index: 10 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  background: rgba(5, 29, 33, 0.96) !important;
+  border-radius: 7px !important;
+}
+
+/* Sparkline gets its own third column. */
+.stats-grid-ref .mini-spark {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  align-self: end !important;
+  width: 84px !important;
+  height: 42px !important;
+  margin: 0 0 2px 0 !important;
+  position: static !important;
+  display: block !important;
+  z-index: 2 !important;
+  opacity: 0.32 !important;
+  pointer-events: none !important;
+}
+
+/* Do not allow the card's decorative overlay to cover text. */
+.stats-grid-ref .stat-card::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 95px !important;
+  height: 55px !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 29, 33, 0),
+    rgba(5, 29, 33, 0.32) 45%,
+    rgba(5, 29, 33, 0.72)
+  ) !important;
+}
+
+/* Sustainability ring gets the third column instead of floating
+   over the text. */
+.stats-grid-ref .stat-card .score-ring {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  align-self: center !important;
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  width: 82px !important;
+  height: 82px !important;
+  margin: 0 !important;
+  z-index: 6 !important;
+  flex: none !important;
+}
+
+.stats-grid-ref .stat-card .score-ring svg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.stats-grid-ref .stat-card .score-ring strong {
+  position: relative !important;
+  z-index: 3 !important;
+  white-space: nowrap !important;
+}
+
+/* ---------- EMISSION SOURCES BREAKDOWN ---------- */
+
+.dashboard-grid-ref .breakdown-panel {
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.dashboard-grid-ref .breakdown-body-ref {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+
+  /* Fixed enough room for a 210px donut + complete legend. */
+  display: grid !important;
+  grid-template-columns: 250px minmax(155px, 1fr) !important;
+  align-items: center !important;
+  column-gap: 18px !important;
+
+  padding: 8px 16px 16px !important;
+  overflow: hidden !important;
+}
+
+.dashboard-grid-ref .donut-ref {
+  position: relative !important;
+  width: 250px !important;
+  height: 230px !important;
+  min-width: 250px !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+}
+
+.dashboard-grid-ref .donut-ref .recharts-wrapper {
+  width: 210px !important;
+  height: 210px !important;
+  max-width: 210px !important;
+  max-height: 210px !important;
+}
+
+/* Legend has its own independent column. */
+.dashboard-grid-ref .breakdown-list-ref {
+  width: 100% !important;
+  min-width: 155px !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 17px !important;
+  overflow: hidden !important;
+}
+
+.dashboard-grid-ref .breakdown-list-ref > div {
+  width: 100% !important;
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: 13px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  column-gap: 8px !important;
+}
+
+.dashboard-grid-ref .breakdown-list-ref i {
+  width: 13px !important;
+  height: 13px !important;
+  border-radius: 4px !important;
+  display: block !important;
+}
+
+.dashboard-grid-ref .breakdown-list-ref span {
+  min-width: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.dashboard-grid-ref .breakdown-list-ref b {
+  display: block !important;
+  min-width: 30px !important;
+  text-align: right !important;
+  white-space: nowrap !important;
+}
+
+/* ---------- NORMAL DESKTOP WIDTH ---------- */
+
+@media (min-width: 1250px) {
+  .stats-grid-ref .stat-card {
+    grid-template-columns: 58px minmax(130px, 1fr) 92px !important;
+  }
+
+  .stats-grid-ref .mini-spark {
+    width: 88px !important;
+  }
+
+  .stats-grid-ref .stat-card .score-ring {
+    width: 84px !important;
+    height: 84px !important;
+  }
+
+  .dashboard-grid-ref .breakdown-body-ref {
+    grid-template-columns: 255px minmax(165px, 1fr) !important;
+    column-gap: 20px !important;
+  }
+
+  .dashboard-grid-ref .donut-ref {
+    width: 255px !important;
+    min-width: 255px !important;
+  }
+}
+
+/* ---------- MEDIUM DESKTOP ---------- */
+
+@media (max-width: 1249px) and (min-width: 901px) {
+  .stats-grid-ref .stat-card {
+    grid-template-columns: 50px minmax(105px, 1fr) 72px !important;
+    column-gap: 9px !important;
+    padding: 14px !important;
+  }
+
+  .stats-grid-ref .stat-icon {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+  }
+
+  .stats-grid-ref .mini-spark {
+    width: 70px !important;
+    height: 36px !important;
+  }
+
+  .stats-grid-ref .stat-card .score-ring {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .dashboard-grid-ref .breakdown-body-ref {
+    grid-template-columns: 215px minmax(135px, 1fr) !important;
+    column-gap: 12px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .dashboard-grid-ref .donut-ref {
+    width: 215px !important;
+    min-width: 215px !important;
+  }
+
+  .dashboard-grid-ref .donut-ref .recharts-wrapper {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+
+  .dashboard-grid-ref .breakdown-list-ref {
+    min-width: 135px !important;
+  }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 900px) {
+  .stats-grid-ref .stat-card {
+    grid-template-columns: 52px minmax(0, 1fr) 74px !important;
+    column-gap: 10px !important;
+  }
+
+  .stats-grid-ref .stat-icon {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+  }
+
+  .stats-grid-ref .mini-spark {
+    width: 70px !important;
+    height: 36px !important;
+  }
+
+  .stats-grid-ref .stat-card .score-ring {
+    width: 70px !important;
+    height: 70px !important;
+  }
+
+  .dashboard-grid-ref .breakdown-body-ref {
+    grid-template-columns: minmax(205px, 1fr) minmax(130px, 0.7fr) !important;
+    column-gap: 10px !important;
+  }
+
+  .dashboard-grid-ref .donut-ref {
+    width: 100% !important;
+    min-width: 205px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid-ref .stat-card {
+    grid-template-columns: 46px minmax(0, 1fr) 65px !important;
+    min-height: 128px !important;
+    padding: 12px !important;
+    column-gap: 8px !important;
+  }
+
+  .stats-grid-ref .stat-icon {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+  }
+
+  .stats-grid-ref .stat-title {
+    font-size: 11px !important;
+  }
+
+  .stats-grid-ref .stat-value {
+    font-size: 20px !important;
+  }
+
+  .stats-grid-ref .stat-change {
+    font-size: 9px !important;
+  }
+
+  .stats-grid-ref .mini-spark {
+    width: 62px !important;
+    height: 32px !important;
+  }
+
+  .stats-grid-ref .stat-card .score-ring {
+    width: 62px !important;
+    height: 62px !important;
+  }
+
+  .dashboard-grid-ref .breakdown-body-ref {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    row-gap: 5px !important;
+  }
+
+  .dashboard-grid-ref .donut-ref {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 210px !important;
+  }
+
+  .dashboard-grid-ref .breakdown-list-ref {
+    width: min(100%, 260px) !important;
+    min-width: 0 !important;
+  }
+}
