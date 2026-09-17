@@ -18,7 +18,7 @@ ENV/
 .ipynb_checkpoints/
 
 # Machine learning generated files
-*.joblib
+
 
 # Python cache
 .pytest_cache/
