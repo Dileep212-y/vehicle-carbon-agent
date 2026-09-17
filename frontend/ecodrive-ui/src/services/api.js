@@ -1,6 +1,6 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_URL?.replace(/\/$/, '') ||
-  'http://127.0.0.1:8000';
+  'https://vehicle-carbon-agent.onrender.com';
 
 export const DEFAULT_ANALYSIS_PAYLOAD = {
   mileage_km_per_litre: 18,
@@ -93,7 +93,6 @@ export async function analyzeEcoDrive(payload = {}) {
     '/api/eco-drive/analyze',
     {
       method: 'POST',
-
       body: JSON.stringify({
         ...DEFAULT_ANALYSIS_PAYLOAD,
         ...payload,
@@ -113,7 +112,6 @@ export async function chatWithEcoDriveAgent({
   context = {},
   sessionId = 'ecodrive-web-session',
 } = {}) {
-
   if (!message || !message.trim()) {
     throw new Error(
       'Please enter a message.'
@@ -124,14 +122,10 @@ export async function chatWithEcoDriveAgent({
     '/api/eco-drive/chat',
     {
       method: 'POST',
-
       body: JSON.stringify({
         message: message.trim(),
-
         session_id: sessionId,
-
         analysis,
-
         context,
       }),
     }
@@ -147,7 +141,6 @@ export function downloadJson(
   filename,
   data
 ) {
-
   const blob = new Blob(
     [
       JSON.stringify(
@@ -168,9 +161,7 @@ export function downloadJson(
     document.createElement('a');
 
   anchor.href = url;
-
-  anchor.download =
-    filename;
+  anchor.download = filename;
 
   document.body.appendChild(
     anchor
@@ -191,7 +182,6 @@ export function downloadJson(
 export function downloadEcoReport(
   result
 ) {
-
   const summary =
     result?.summary ||
     result?.pipeline?.summary ||
@@ -262,7 +252,6 @@ export function downloadEcoReport(
     'This report contains prototype project estimates.',
   ].join('\n');
 
-
   const blob = new Blob(
     [text],
     {
@@ -277,7 +266,6 @@ export function downloadEcoReport(
     document.createElement('a');
 
   anchor.href = url;
-
   anchor.download =
     'ecodrive-report.txt';
 
