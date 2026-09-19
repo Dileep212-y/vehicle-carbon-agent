@@ -460,17 +460,26 @@ def generate_assistant_reply(
 
     eco_score = _number(
         eco.get(
-            "eco_performance_score"
-        )
-        or eco.get(
-            "score"
+            "overall_score"
         ),
-        0
+        eco.get(
+            "eco_performance_score",
+            eco.get(
+                "score",
+                summary.get(
+                    "eco_performance_score",
+                    0
+                )
+            )
+        )
     )
 
     eco_rating = (
-        eco.get("rating")
+        eco.get("overall_rating")
+        or eco.get("eco_performance_rating")
+        or eco.get("rating")
         or eco.get("eco_rating")
+        or summary.get("eco_performance_rating")
         or "Not available"
     )
 
@@ -500,29 +509,38 @@ def generate_assistant_reply(
 
     fuel_saved = _number(
         route.get(
-            "fuel_saved_litres"
-        )
-        or route.get(
-            "fuel_saved"
+            "estimated_fuel_saved_litres"
         ),
-        0
+        route.get(
+            "fuel_saved_litres",
+            route.get(
+                "fuel_saved",
+                0
+            )
+        )
     )
 
     cost_saved = _number(
         route.get(
-            "cost_saved"
+            "estimated_cost_saved"
         ),
-        0
+        route.get(
+            "cost_saved",
+            0
+        )
     )
 
     route_co2_reduction = _number(
         route.get(
-            "co2_reduction_kg"
-        )
-        or route.get(
-            "co2_reduction"
+            "estimated_co2_reduction_kg"
         ),
-        0
+        route.get(
+            "co2_reduction_kg",
+            route.get(
+                "co2_reduction",
+                0
+            )
+        )
     )
 
     # -----------------------------------------------------
