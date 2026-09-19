@@ -49,11 +49,6 @@ const items = [
     icon: FileText,
   },
   {
-    label: "Sustainability Tips",
-    to: "/driving",
-    icon: Leaf,
-  },
-  {
     label: "Settings",
     to: "/settings",
     icon: Settings,
