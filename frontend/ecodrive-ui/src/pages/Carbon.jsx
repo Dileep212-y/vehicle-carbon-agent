@@ -271,7 +271,7 @@ export default function Carbon() {
                 18% below your previous baseline
               </div>
             </div>
-            <MetricRing score={Math.round(Math.max(0, Math.min(100, ecoScore)))} />
+            <MetricRing score={displayedCarbonEfficiency} />
           </div>
           <div className="hero-mini-grid">
             <div className="hero-mini-stat">
