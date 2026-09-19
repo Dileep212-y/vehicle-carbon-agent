@@ -1259,3 +1259,462 @@
   }
 
 }
+
+
+/* ============================================================
+   REPORTS / JOURNEY LOG — CLEAN V2
+   ============================================================ */
+
+.history-page {
+  min-height: 100vh;
+  color: #dceee8;
+  background:
+    radial-gradient(circle at 82% 0%, rgba(63, 224, 167, .07), transparent 30%),
+    linear-gradient(180deg, #06191b 0%, #041416 52%, #031113 100%);
+}
+
+.history-hero {
+  min-height: 390px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+  align-items: center;
+  gap: 44px;
+  padding: 54px 46px 42px;
+  border-bottom: 1px solid rgba(111, 180, 168, .10);
+  background:
+    radial-gradient(circle at 75% 45%, rgba(63, 224, 167, .08), transparent 28%),
+    linear-gradient(135deg, rgba(7, 31, 33, .92), rgba(3, 17, 19, .98));
+}
+
+.history-hero-copy {
+  max-width: 680px;
+  padding-left: 0;
+}
+
+.history-kicker {
+  font-size: 10px;
+  letter-spacing: .18em;
+}
+
+.history-hero-copy h1 {
+  margin: 14px 0 18px;
+  font-size: clamp(42px, 5vw, 66px);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.history-hero-copy > p {
+  max-width: 590px;
+  color: #829d98;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.history-periods {
+  margin-top: 26px;
+  padding: 5px;
+  border-radius: 13px;
+}
+
+.history-periods button {
+  padding: 10px 15px;
+  font-size: 11px;
+}
+
+.history-orbit {
+  min-height: 300px;
+}
+
+.history-orbit .orbit-ring {
+  opacity: .55;
+}
+
+.history-orb {
+  width: 168px;
+  height: 168px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(76, 226, 172, .16), rgba(3, 23, 24, .98) 66%);
+}
+
+.history-orb svg {
+  width: 28px;
+  height: 28px;
+}
+
+.history-orb strong {
+  font-size: 48px;
+}
+
+.history-orb span {
+  font-size: 8px;
+}
+
+.orbit-stat {
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: rgba(5, 26, 28, .92);
+}
+
+.orbit-stat span {
+  font-size: 7px;
+}
+
+.orbit-stat strong {
+  font-size: 11px;
+}
+
+.history-summary {
+  display: none;
+}
+
+.history-content {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 38px 46px 70px;
+}
+
+.history-toolbar {
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.history-heading > span {
+  font-size: 9px;
+  letter-spacing: .16em;
+}
+
+.history-heading h2 {
+  margin-top: 5px;
+  font-size: 34px;
+}
+
+.export-button {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-size: 11px;
+  background: rgba(71, 224, 169, .07);
+}
+
+.history-controls {
+  align-items: center;
+  margin-top: 0;
+  padding: 14px;
+  border: 1px solid rgba(99, 163, 155, .12);
+  border-radius: 16px;
+  background: rgba(6, 27, 29, .62);
+}
+
+.history-search {
+  height: 43px;
+  max-width: 520px;
+  border-radius: 11px;
+  background: rgba(2, 16, 18, .55);
+}
+
+.history-search input {
+  font-size: 11px;
+}
+
+.history-filter {
+  border-radius: 11px;
+}
+
+.history-filter button {
+  padding: 9px 14px;
+  font-size: 10px;
+}
+
+.history-list {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.history-trip {
+  margin-bottom: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(8, 31, 33, .92), rgba(4, 20, 22, .96));
+  box-shadow: 0 14px 35px rgba(0, 0, 0, .12);
+}
+
+.history-trip:hover {
+  transform: translateY(-2px);
+}
+
+.trip-main {
+  min-height: 112px;
+  grid-template-columns: 1.05fr 1.55fr .62fr .62fr .62fr 62px 74px;
+  gap: 18px;
+  padding: 18px 20px;
+}
+
+.trip-date {
+  gap: 11px;
+}
+
+.trip-date > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.trip-date strong {
+  font-size: 12px;
+}
+
+.trip-date span {
+  margin-top: 6px;
+  font-size: 9px;
+}
+
+.trip-route {
+  grid-template-columns: 1fr 42px 1fr;
+}
+
+.route-point small {
+  font-size: 7px;
+}
+
+.route-point strong {
+  font-size: 10px;
+}
+
+.trip-metric span {
+  font-size: 7px;
+  letter-spacing: .10em;
+}
+
+.trip-metric strong {
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.score-circle {
+  width: 46px;
+  height: 46px;
+}
+
+.score-circle::before {
+  inset: 5px;
+}
+
+.score-circle span {
+  font-size: 11px;
+}
+
+.trip-score small {
+  font-size: 8px;
+}
+
+.trip-actions > button {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.trip-expanded {
+  gap: 12px;
+  padding: 0 20px 20px;
+}
+
+.expanded-route,
+.expanded-insight {
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.expanded-route span,
+.expanded-insight span {
+  font-size: 7px;
+}
+
+.expanded-route strong {
+  font-size: 12px;
+}
+
+.expanded-route p,
+.expanded-insight p {
+  font-size: 9px;
+}
+
+.expanded-stats {
+  gap: 8px;
+}
+
+.expanded-stats > div {
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.expanded-stats span {
+  font-size: 7px;
+}
+
+.expanded-stats strong {
+  font-size: 10px;
+}
+
+.history-bottom-grid {
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.history-insight-card,
+.history-streak-card {
+  min-height: 135px;
+  padding: 22px;
+  border-radius: 18px;
+}
+
+.history-insight-card span,
+.history-streak-card span {
+  font-size: 8px;
+}
+
+.history-insight-card h3 {
+  font-size: 18px;
+}
+
+.history-insight-card p {
+  font-size: 10px;
+}
+
+.history-streak-card > div:nth-child(2) strong {
+  font-size: 20px;
+}
+
+.history-streak-card > div:nth-child(2) small {
+  font-size: 9px;
+}
+
+/* Keep the reports page readable on medium screens. */
+@media (max-width: 1250px) {
+  .history-hero {
+    grid-template-columns: 1fr .75fr;
+    padding: 42px 30px 36px;
+  }
+
+  .history-content {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .trip-main {
+    grid-template-columns: 1fr 1.4fr .65fr .6fr 60px 68px;
+  }
+
+  .trip-metric:nth-of-type(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 950px) {
+  .history-hero {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 38px 24px;
+  }
+
+  .history-orbit {
+    min-height: 280px;
+  }
+
+  .history-content {
+    padding: 30px 20px 55px;
+  }
+
+  .history-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-search {
+    max-width: none;
+  }
+
+  .history-filter {
+    width: fit-content;
+  }
+
+  .trip-main {
+    grid-template-columns: 1fr 1fr 70px;
+    gap: 14px;
+  }
+
+  .trip-route {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .trip-metric:nth-of-type(3) {
+    display: block;
+  }
+
+  .trip-score {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 650px) {
+  .history-hero {
+    padding: 30px 16px;
+  }
+
+  .history-hero-copy h1 {
+    font-size: 43px;
+  }
+
+  .history-hero-copy > p {
+    font-size: 12px;
+  }
+
+  .history-content {
+    padding: 26px 14px 45px;
+  }
+
+  .history-toolbar {
+    align-items: flex-start;
+  }
+
+  .history-heading h2 {
+    font-size: 28px;
+  }
+
+  .export-button {
+    padding: 0 12px;
+  }
+
+  .trip-main {
+    grid-template-columns: 1fr 52px 40px;
+    padding: 16px;
+  }
+
+  .trip-route {
+    grid-column: 1 / -1;
+  }
+
+  .trip-metric {
+    display: none !important;
+  }
+
+  .trip-score {
+    grid-column: 2;
+  }
+
+  .trip-actions {
+    grid-column: 3;
+  }
+
+  .trip-expanded {
+    grid-template-columns: 1fr;
+    padding: 0 16px 16px;
+  }
+
+  .expanded-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .history-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
