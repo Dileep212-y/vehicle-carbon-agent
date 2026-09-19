@@ -538,9 +538,9 @@ def _build_context_response(
 
     efficiency = _number(
         fuel.get(
-            "equivalent_efficiency_kmpl",
+            "equivalent_fuel_efficiency_kmpl",
             fuel.get(
-                "equivalent_efficiency",
+                "equivalent_efficiency_kmpl",
                 0,
             ),
         )
@@ -603,9 +603,9 @@ def _build_context_response(
 
     eco_score = _number(
         eco.get(
-            "eco_performance_score",
+            "overall_score",
             eco.get(
-                "score",
+                "eco_performance_score",
                 eco.get(
                     "eco_score",
                     0,
@@ -629,9 +629,9 @@ def _build_context_response(
 
     fuel_saved = _number(
         route.get(
-            "fuel_saved_litres",
+            "estimated_fuel_saved_litres",
             route.get(
-                "fuel_saved",
+                "fuel_saved_litres",
                 0,
             ),
         )
@@ -639,9 +639,9 @@ def _build_context_response(
 
     cost_saved = _number(
         route.get(
-            "cost_saved",
+            "estimated_cost_saved",
             route.get(
-                "cost_saved_inr",
+                "cost_saved",
                 0,
             ),
         )
@@ -649,9 +649,9 @@ def _build_context_response(
 
     route_co2_reduction = _number(
         route.get(
-            "co2_reduction_kg",
+            "estimated_co2_reduction_kg",
             route.get(
-                "co2_saved_kg",
+                "co2_reduction_kg",
                 0,
             ),
         )
@@ -911,7 +911,7 @@ def _build_context_response(
 
     if intent == "eco":
 
-        if eco_score > 0:
+        if eco_score >= 0 and isinstance(eco, dict) and "overall_score" in eco:
 
             response = (
                 f"Your current Eco Performance Score is "
