@@ -97,16 +97,17 @@ const factorData = [
   },
 ];
 
-function MetricRing({ score = 92 }) {
+function MetricRing({ score = null }) {
+  const numericScore = Number.isFinite(Number(score)) ? Number(score) : null;
   return (
-    <div className="carbon-ring-shell" aria-label={`Carbon efficiency score ${score}%`}>
+    <div className="carbon-ring-shell" aria-label={`Carbon efficiency score ${numericScore != null ? Math.round(numericScore) : "not available"}%`}>
       <div
         className="carbon-ring"
-        style={{ "--score": `${score * 3.6}deg` }}
+        style={{ "--score": `${(numericScore ?? 0) * 3.6}deg` }}
       >
         <div className="carbon-ring-inner">
           <span className="ring-kicker">CARBON</span>
-          <strong>{score}%</strong>
+          <strong>{numericScore != null ? `${Math.round(numericScore)}%` : "—"}</strong>
           <span className="ring-caption">efficiency</span>
         </div>
       </div>
@@ -183,7 +184,9 @@ export default function Carbon() {
   const tripFuel = Number(impact?.estimated_fuel_consumed_litres ?? fuelPrediction?.predicted_fuel_consumption_l_per_100km ?? 7.2);
   const distanceKm = Number(impact?.distance_km ?? 18.6);
   const fuelCost = Number(impact?.estimated_fuel_cost ?? 0);
-  const ecoScore = Number(summary?.eco_performance_score ?? 92);
+  const ecoPerformance = analysis?.pipeline?.eco_performance || {};
+  const carbonEfficiency = Number(ecoPerformance?.components?.carbon_intensity_score);
+  const ecoScore = Number(summary?.eco_performance_score);
   const predictedFuel = Number(fuelPrediction?.predicted_fuel_consumption_l_per_100km ?? 7.2);
   const averageSpeed = Number(driving?.average_speed_kmh ?? 45);
   const acceleration = Number(fuelPrediction?.inputs?.acceleration_mps2 ?? 1.1);
@@ -197,6 +200,10 @@ export default function Carbon() {
     { key: "idle", title: "Idle time", value: idleMinutes.toFixed(0), unit: "min", status: idleMinutes <= 5 ? "Good" : "Watch", icon: Timer, fill: Math.min(100, Math.max(10, idleMinutes * 6)), copy: "Reducing stationary engine time can improve trip efficiency." },
   ];
   const [activeFactor, setActiveFactor] = useState("speed");
+
+  const displayedCarbonEfficiency = Number.isFinite(carbonEfficiency)
+    ? Math.round(Math.max(0, Math.min(100, carbonEfficiency)))
+    : null;
 
   const activeFactorData = useMemo(
     () => dynamicFactorData.find((item) => item.key === activeFactor) ?? dynamicFactorData[0],
