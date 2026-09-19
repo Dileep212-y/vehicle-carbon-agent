@@ -606,8 +606,8 @@ export default function Assistant() {
             <div>
               <strong>EcoDrive AI</strong>
               <span>
-                {analysis?.summary
-                  ? `Connected to your latest ${analysis.summary.eco_performance_score ?? "eco"} score analysis`
+                {summary
+                  ? `Connected to your latest ${summary.eco_performance_score ?? "eco"} score analysis`
                   : "Connected to the EcoDrive intelligence layer"}
               </span>
             </div>
@@ -641,7 +641,7 @@ export default function Assistant() {
             <aside className="assistant-context-panel">
               <div className="assistant-context-label">CURRENT ECO CONTEXT</div>
               <div className="assistant-context-score">
-                <strong>{analysis?.summary?.eco_performance_score ?? "—"}</strong>
+                <strong>{summary?.eco_performance_score ?? "—"}</strong>
                 <span>/100 eco score</span>
               </div>
               <div className="assistant-context-grid">
