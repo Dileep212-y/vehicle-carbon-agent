@@ -533,7 +533,7 @@ export default function Carbon() {
           </div>
         </div>
         <div className="diagnosis-score-card">
-          <MetricRing score={Math.round(Math.max(0, Math.min(100, ecoScore)))} />
+          <MetricRing score={displayedCarbonEfficiency} />
           <div>
             <span className="panel-eyebrow">OPTIMIZATION READINESS</span>
             <strong>Good opportunity</strong>
