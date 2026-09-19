@@ -187,6 +187,15 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-ref">
+      <Link
+        to="/assistant"
+        className="dashboard-chat-fab"
+        aria-label="Open EcoDrive AI Assistant"
+        title="Open EcoDrive AI Assistant"
+      >
+        <Bot size={22} />
+        <span>AI Assistant</span>
+      </Link>
       <header className="topbar-ref">
         <div className="search-box-ref">
           <Search size={18} />
