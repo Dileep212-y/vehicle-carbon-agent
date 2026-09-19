@@ -453,9 +453,12 @@ def generate_assistant_reply(
 
     fuel_cost = _number(
         carbon.get(
-            "fuel_cost"
+            "estimated_fuel_cost"
         ),
-        0
+        carbon.get(
+            "fuel_cost",
+            0
+        )
     )
 
     eco_score = _number(
