@@ -655,8 +655,8 @@ export default function Assistant() {
                 <div>
                   <span>CO₂</span>
                   <strong>
-                    {analysis?.pipeline?.carbon_impact?.co2_emissions_kg ?? "—"}
-                    {analysis?.pipeline?.carbon_impact?.co2_emissions_kg != null && " kg"}
+                    {analysis?.pipeline?.carbon_impact?.estimated_co2_emissions_kg ?? "—"}
+                    {analysis?.pipeline?.carbon_impact?.estimated_co2_emissions_kg != null && " kg"}
                   </strong>
                 </div>
                 <div>
