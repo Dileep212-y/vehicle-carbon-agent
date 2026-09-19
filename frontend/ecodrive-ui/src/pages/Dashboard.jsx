@@ -45,16 +45,6 @@ import { useEcoDrive } from '../context/EcoDriveContext';
 import './DashboardDemo.css';
 import './DashboardMetricsFix.css';
 
-const trend = [
-  { day: 'Sep 8', vehicle: 142, similar: 206, target: 88 },
-  { day: 'Sep 9', vehicle: 151, similar: 197, target: 88 },
-  { day: 'Sep 10', vehicle: 122, similar: 165, target: 86 },
-  { day: 'Sep 11', vehicle: 77, similar: 132, target: 82 },
-  { day: 'Sep 12', vehicle: 82, similar: 137, target: 80 },
-  { day: 'Sep 13', vehicle: 96, similar: 112, target: 76 },
-  { day: 'Sep 14', vehicle: 83, similar: 109, target: 74 },
-];
-
 const sourceData = [
   { name: 'Engine Combustion', value: 52 },
   { name: 'Idling', value: 18 },
@@ -94,7 +84,36 @@ export default function Dashboard() {
   const [demoOpen, setDemoOpen] = useState(false);
   const [demoStep, setDemoStep] = useState(0);
   const [days, setDays] = useState('Last 7 Days');
-  const { analysis, loading, backendOnline, runAnalysis } = useEcoDrive();
+  const { analysis, analysisHistory, loading, backendOnline, runAnalysis } = useEcoDrive();
+
+  const trend = useMemo(() => {
+    const snapshots = Array.isArray(analysisHistory) ? [...analysisHistory] : [];
+    if (analysis && !snapshots.some((snapshot) => snapshot?.result === analysis)) {
+      snapshots.unshift({ id: "current", createdAt: new Date().toISOString(), result: analysis });
+    }
+    const points = snapshots
+      .map((snapshot) => {
+        const summary = snapshot?.result?.pipeline?.summary || snapshot?.result?.summary || {};
+        const co2 = Number(summary?.co2_per_km);
+        if (!Number.isFinite(co2) || co2 < 0) return null;
+        const vehicle = co2 * 1000;
+        return {
+          timestamp: snapshot?.createdAt || snapshot?.timestamp || new Date().toISOString(),
+          vehicle,
+          similar: Math.max(vehicle * 1.15, vehicle + 5),
+          target: vehicle * 0.75,
+        };
+      })
+      .filter(Boolean)
+      .reverse()
+      .slice(-7);
+    return points.map((point) => ({
+      day: new Date(point.timestamp).toLocaleDateString("en-IN", { day: "numeric", month: "short" }),
+      vehicle: Number(point.vehicle.toFixed(1)),
+      similar: Number(point.similar.toFixed(1)),
+      target: Number(point.target.toFixed(1)),
+    }));
+  }, [analysis, analysisHistory]);
   const pipeline = analysis?.pipeline || {};
   const summary = pipeline?.summary || {};
   const routeComparison = pipeline?.route_comparison || {};
