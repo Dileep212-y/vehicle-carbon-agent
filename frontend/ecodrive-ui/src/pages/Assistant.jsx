@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Activity,
   ArrowRight,
@@ -77,9 +78,16 @@ const resultMetricStyle = {
 };
 
 export default function Assistant() {
+  const location = useLocation();
   const [selectedMode, setSelectedMode] = useState(1);
   const [showDemo, setShowDemo] = useState(false);
   const { analysis, loading, backendOnline, runAnalysis } = useEcoDrive();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.pathname]);
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
   const [chatError, setChatError] = useState("");
