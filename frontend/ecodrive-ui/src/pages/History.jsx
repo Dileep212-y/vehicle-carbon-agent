@@ -532,43 +532,23 @@ export default function History() {
                 style={{ "--delay": `${index * 55}ms` }}
               >
                 <div className="trip-main">
-                  <div className="trip-date">
-                    <CalendarDays size={14} />
-                    <div>
+                  <div className="trip-identity">
+                    <div className="trip-identity-icon">
+                      <CalendarDays size={19} />
+                    </div>
+                    <div className="trip-identity-copy">
                       <strong>{trip.name}</strong>
-                      <span>
-                        {trip.date} · {trip.time}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="trip-route">
-                    <div className="route-point start">
-                      <span />
-                      <div>
-                        <small>ANALYSIS</small>
-                        <strong>{trip.fuelType} journey</strong>
-                      </div>
-                    </div>
-
-                    <div className="route-line">
-                      <i />
-                    </div>
-
-                    <div className="route-point destination">
-                      <MapPin size={17} />
-                      <div>
-                        <small>AI RESULT</small>
-                        <strong>{trip.routeName}</strong>
+                      <span>{trip.date} · {trip.time}</span>
+                      <div className="trip-tags">
+                        <span>{trip.fuelType}</span>
+                        <span>{trip.routeName}</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="trip-metric">
                     <span>DISTANCE</span>
-                    <strong>
-                      {trip.distance.toFixed(1)} km
-                    </strong>
+                    <strong>{trip.distance.toFixed(1)} km</strong>
                   </div>
 
                   <div className="trip-metric">
@@ -578,24 +558,28 @@ export default function History() {
 
                   <div className="trip-metric emission-metric">
                     <span>CO₂</span>
-                    <strong>
-                      {trip.emissions.toFixed(2)} kg
-                    </strong>
+                    <strong>{trip.emissions.toFixed(2)} kg</strong>
+                  </div>
+
+                  <div className="trip-metric">
+                    <span>EFFICIENCY</span>
+                    <strong>{trip.efficiency.toFixed(1)} km/L</strong>
                   </div>
 
                   <div className="trip-score">
                     <div
                       className="score-circle"
                       style={{
-                        "--score": `${Math.max(
-                          0,
-                          Math.min(100, trip.score)
-                        ) * 3.6}deg`,
+                        "--score":
+                          Math.max(0, Math.min(100, trip.score)) * 3.6 + "deg",
                       }}
                     >
                       <span>{Math.round(trip.score)}</span>
                     </div>
-                    <small>eco</small>
+                    <div className="score-copy">
+                      <strong>Eco</strong>
+                      <small>score</small>
+                    </div>
                   </div>
 
                   <div className="trip-actions">
@@ -603,28 +587,24 @@ export default function History() {
                       type="button"
                       title="More options"
                       onClick={() =>
-                        setMenu(
-                          menu === trip.id ? null : trip.id
-                        )
+                        setMenu(menu === trip.id ? null : trip.id)
                       }
                     >
-                      <MoreHorizontal size={16} />
+                      <MoreHorizontal size={17} />
                     </button>
 
                     <button
                       type="button"
+                      className="view-analysis-button"
                       title="View analysis"
                       onClick={() =>
-                        setExpanded(
-                          isExpanded ? null : trip.id
-                        )
+                        setExpanded(isExpanded ? null : trip.id)
                       }
                     >
+                      <span>{isExpanded ? "Close" : "View"}</span>
                       <ChevronRight
-                        size={17}
-                        className={
-                          isExpanded ? "rotated" : ""
-                        }
+                        size={16}
+                        className={isExpanded ? "rotated" : ""}
                       />
                     </button>
 
@@ -632,17 +612,13 @@ export default function History() {
                       <div className="trip-menu">
                         <button
                           type="button"
-                          onClick={() =>
-                            setExpanded(trip.id)
-                          }
+                          onClick={() => setExpanded(trip.id)}
                         >
                           View analysis
                         </button>
                         <button
                           type="button"
-                          onClick={() =>
-                            handleExportTrip(trip)
-                          }
+                          onClick={() => handleExportTrip(trip)}
                         >
                           Export analysis
                         </button>
