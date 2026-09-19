@@ -56,10 +56,22 @@ function formatDistance(km) {
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return "—";
   const minutes = Math.max(1, Math.round(seconds / 60));
-  if (minutes < 60) return `${minutes} min`;
+  if (minutes < 60) return minutes + " min";
   const hours = Math.floor(minutes / 60);
   const remaining = minutes % 60;
-  return remaining ? `${hours}h ${remaining}m` : `${hours}h`;
+  return remaining ? hours + "h " + remaining + "m" : hours + "h";
+}
+
+function trafficTimeMultiplier(traffic = "moderate") {
+  const normalized = String(traffic).toLowerCase();
+  if (normalized === "heavy") return 1.25;
+  if (normalized === "low") return 1.0;
+  return 1.10;
+}
+
+function formatRouteTime(route) {
+  if (!route) return "—";
+  return formatTime(Number(route.durationSeconds) * trafficTimeMultiplier(route.traffic));
 }
 
 function titleCase(value = "") {
@@ -717,8 +729,8 @@ export default function RoutePage() {
             </div>
             <div>
               <Clock3 size={15} />
-              <span>Selected route time</span>
-              <strong>{selectedRoute ? formatTime(selectedRoute.durationSeconds) : "—"}</strong>
+              <span>Estimated travel time</span>
+              <strong>{selectedRoute ? formatRouteTime(selectedRoute) : "—"}</strong>
             </div>
             <div>
               <Fuel size={15} />
@@ -884,7 +896,7 @@ export default function RoutePage() {
                       </div>
                       <div>
                         <span>TIME</span>
-                        <strong>{formatTime(route.durationSeconds)}</strong>
+                        <strong>{formatRouteTime(route)}</strong>
                       </div>
                       <div>
                         <span>TRAFFIC ESTIMATE</span>
